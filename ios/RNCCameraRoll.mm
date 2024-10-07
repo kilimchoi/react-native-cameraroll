@@ -434,12 +434,29 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
   NSString *const afterCursor = [RCTConvert NSString:params[@"after"]];
   NSString *const groupName = [RCTConvert NSString:params[@"groupName"]];
   NSString *const groupTypes = [[RCTConvert NSString:params[@"groupTypes"]] lowercaseString];
+  NSLog(@"groupTypes after conversion: %@", groupTypes);
   NSString *const mediaType = [RCTConvert NSString:params[@"assetType"]];
   NSUInteger const fromTime = [RCTConvert NSInteger:params[@"fromTime"]];
   NSUInteger const toTime = [RCTConvert NSInteger:params[@"toTime"]];
   NSArray<NSString *> *const mimeTypes = [RCTConvert NSStringArray:params[@"mimeTypes"]];
   NSArray<NSString *> *const include = [RCTConvert NSStringArray:params[@"include"]];
+  if (groupTypes) {
+    NSLog(@"groupTypes: %@", groupTypes);
+  } else {
+    NSLog(@"groupTypes is nil");
+  }
 
+  if (groupName) {
+    NSLog(@"groupName: %@", groupName);
+  } else {
+    NSLog(@"groupName is nil");
+  }
+
+  if (afterCursor) {
+    NSLog(@"afterCursor: %@", afterCursor);
+  } else {
+    NSLog(@"afterCursor is nil");
+  }
   BOOL __block includeSharedAlbums = [params[@"includeSharedAlbums"] boolValue];
 
   BOOL __block includeFilename = [include indexOfObject:@"filename"] != NSNotFound;
