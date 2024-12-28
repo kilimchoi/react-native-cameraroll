@@ -566,14 +566,21 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
     } else {
       PHFetchResult<PHAssetCollection *> * assetCollectionFetchResult;
       if ([groupTypes isEqualToString:@"smartalbum"]) {
-        assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
-        [assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * _Nonnull assetCollection, NSUInteger collectionIdx, BOOL * _Nonnull stopCollections) {
-          if ([assetCollection.localizedTitle isEqualToString:groupName]) {
-            PHFetchResult<PHAsset *> *const assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:assetFetchOptions];
-            [assetsFetchResult enumerateObjectsUsingBlock:collectAsset];
-            *stopCollections = stopCollections_;
-          }
-        }];
+	if ([groupName isEqualToString:@"RecentlyAdded"]) {
+		// Specifically fetch RecentlyAdded smart album
+		assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum 
+						subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded 
+						options:nil];
+	} else {
+		assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
+	}
+	[assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * _Nonnull assetCollection, NSUInteger collectionIdx, BOOL * _Nonnull stopCollections) {
+	  if ([assetCollection.localizedTitle isEqualToString:groupName]) {
+	    PHFetchResult<PHAsset *> *const assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:assetFetchOptions];
+	    [assetsFetchResult enumerateObjectsUsingBlock:collectAsset];
+	    *stopCollections = stopCollections_;
+	  }
+	}];
       } else {
         PHAssetCollectionSubtype const collectionSubtype = [RCTConvert PHAssetCollectionSubtype:groupTypes];
 
