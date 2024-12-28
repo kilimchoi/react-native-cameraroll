@@ -567,8 +567,8 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
       PHFetchResult<PHAssetCollection *> * assetCollectionFetchResult;
       if ([groupTypes isEqualToString:@"smartalbum"]) {
 	NSLog(@"groupTypes is smartalbum");
-	if ([groupName isEqualToString:@"recentlyadded"]) {
-		NSLog(@"groupName is recentlyadded");
+	if ([groupName isEqualToString:@"Recently Added"]) {
+		NSLog(@"groupName is Recently Added");
 		// Specifically fetch RecentlyAdded smart album
 		assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum 
 						subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded 
