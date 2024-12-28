@@ -576,7 +576,7 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
 	} else {
 		assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
 	}
-	NSLog(@"assetCollectionFetchResult: %@", assetCollectionFetchResult) 
+	NSLog(@"assetCollectionFetchResult: %@", assetCollectionFetchResult);
 	[assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * _Nonnull assetCollection, NSUInteger collectionIdx, BOOL * _Nonnull stopCollections) {
 	  if ([assetCollection.localizedTitle isEqualToString:groupName]) {
 	    PHFetchResult<PHAsset *> *const assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:assetFetchOptions];
