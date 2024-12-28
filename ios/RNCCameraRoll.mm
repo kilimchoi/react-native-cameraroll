@@ -566,7 +566,9 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
     } else {
       PHFetchResult<PHAssetCollection *> * assetCollectionFetchResult;
       if ([groupTypes isEqualToString:@"smartalbum"]) {
+	NSLog(@"groupTypes is smartalbum");
 	if ([groupName isEqualToString:@"recentlyadded"]) {
+		NSLog(@"groupName is recentlyadded");
 		// Specifically fetch RecentlyAdded smart album
 		assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum 
 						subtype:PHAssetCollectionSubtypeSmartAlbumRecentlyAdded 
@@ -574,6 +576,7 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
 	} else {
 		assetCollectionFetchResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
 	}
+	NSLog(@"assetCollectionFetchResult: %@", assetCollectionFetchResult) 
 	[assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * _Nonnull assetCollection, NSUInteger collectionIdx, BOOL * _Nonnull stopCollections) {
 	  if ([assetCollection.localizedTitle isEqualToString:groupName]) {
 	    PHFetchResult<PHAsset *> *const assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:assetFetchOptions];
