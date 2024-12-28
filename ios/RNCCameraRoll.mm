@@ -578,11 +578,12 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
 	}
 	NSLog(@"assetCollectionFetchResult: %@", assetCollectionFetchResult);
 	[assetCollectionFetchResult enumerateObjectsUsingBlock:^(PHAssetCollection * _Nonnull assetCollection, NSUInteger collectionIdx, BOOL * _Nonnull stopCollections) {
-	  if ([assetCollection.localizedTitle isEqualToString:groupName]) {
-	    PHFetchResult<PHAsset *> *const assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:assetFetchOptions];
-	    [assetsFetchResult enumerateObjectsUsingBlock:collectAsset];
-	    *stopCollections = stopCollections_;
-	  }
+	    NSLog(@"Comparing - Collection Title: '%@', GroupName: '%@'", assetCollection.localizedTitle, groupName);
+	    if ([assetCollection.localizedTitle isEqualToString:groupName]) {
+		PHFetchResult<PHAsset *> *const assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:assetFetchOptions];
+		[assetsFetchResult enumerateObjectsUsingBlock:collectAsset];
+		*stopCollections = stopCollections_;
+	    }
 	}];
       } else {
         PHAssetCollectionSubtype const collectionSubtype = [RCTConvert PHAssetCollectionSubtype:groupTypes];
